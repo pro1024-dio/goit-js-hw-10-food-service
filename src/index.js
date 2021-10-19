@@ -1,4 +1,6 @@
 import { load as loadStorage, save as saveStorage} from "./js/storage";
+import menuData from "./js/menu.json";
+import menuTemplate from './templates/menu.hbs';
 
 const Theme = {
   LIGHT: 'light-theme',
@@ -20,7 +22,7 @@ const themeSwitchToggle = document.querySelector('input#theme-switch-toggle');
 let themeStyle = loadStorage('theme');
 // console.log(loadStorage, saveStorage);
 if (!themeStyle) {
-    themeStyle = Theme.DARK;
+    themeStyle = Theme.LIGHT;
 }
 
 switch (themeStyle) {
@@ -33,5 +35,10 @@ switch (themeStyle) {
         body.classList.toggle(themeStyle);
         break;
 }
+
+const menu = document.querySelector('ul.menu');
+const markup = menuTemplate(menuData);
+
+menu.insertAdjacentHTML('beforeend', markup);
 
 themeSwitchToggle.addEventListener('change', inputHandler);
